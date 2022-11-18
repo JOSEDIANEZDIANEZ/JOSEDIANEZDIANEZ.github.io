@@ -1,8 +1,8 @@
 
     .btnredondo {
       display: block;
-      width: 600px;
-      height: 600px;
+      width: 700px;
+      height: 700px;
       border-radius: 50%;
       border-color: gray;
       color: gray;
@@ -26,7 +26,7 @@
         
         display: flex;
         
-        justify-content: top;
+        justify-content: center;
         
         align-items: center;
        
