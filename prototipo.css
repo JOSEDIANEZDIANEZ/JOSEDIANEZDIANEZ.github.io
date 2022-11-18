@@ -1,60 +1,78 @@
+.btnredondo {
+  display: block;
+  width: 700px;
+  height: 700px;
+  border-radius: 50%;
+  border-color: gray;
+  color: gray;
+  font-size: 400%;
+  background-color: white;
+}
 
-    .btnredondo {
-      display: block;
-      width: 700px;
-      height: 700px;
-      border-radius: 50%;
-      border-color: gray;
-      color: gray;
-      font-size: 400%;
-      background-color: white;
-    }
 .btnredondoempezar {
-      display: block;
-      width: 100px;
-      height: 100px;
-      border-radius: 10%;
-      border-color: gray;
-      color: gray;
-      font-size: 250%;
-      background-color: white;
-    }
-      .contenedor {
-        height: 100vh;
-        
-       
-        
-        display: flex;
-        
-        justify-content: center;
-        
-        align-items: center;
-       
-        flex-direction: column;
-       
-      }
-.restoClass{
-font-size:150%;
-color:gray;
-}
-#contenedorcronometro{
-	margin: 10px auto;
-	width: 540px;
-	height: 115px;
-}
-.reloj{
-	float: left;
-	font-size: 80px;
-	font-family: Courier,sans-serif;
-	color: #363431;
-}
-.empezardenuevoclass{
   display: flex;
-  justify-content: right;
-  align-items: right;
+  align-items: top;
+  justify-content: left;
+  width: 100px;
+  height: 100px;
+  border-radius: 10%;
+  border-color: gray;
+  color: gray;
+  font-size: 250%;
+  background-color: white;
+}
+
+.contenedor {
+  height: 100vh;
+
+
+
+  display: flex;
+
+  justify-content: center;
+
+  align-items: center;
+
  
+  
 }
-.cabecera{
+
+.restoClass {
+  font-size: 150%;
+  color: gray;
+}
+
+#contenedorcronometro {
+  margin: 10px auto;
+  width: 540px;
+  height: 115px;
+}
+
+.reloj {
+  float: left;
+  font-size: 80px;
+  font-family: Courier, sans-serif;
+  color: #363431;
+}
+
+.empezardenuevoclass {
+  width: 50px;
+  height: 50px;
+  background-color: #fff;
+  position: absolute;
+  left: 5px;
+  top: 5px;
+  border-radius: 50%;
+
+  /*line-height: 50px;*/
+
+
+}
+
+.cabecera {
   display: flex;
+  justify-content: top;
+  align-items: top;
+
 
 }
