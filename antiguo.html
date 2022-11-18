@@ -1,0 +1,117 @@
+<html lang="es-ES">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>
+  preguntas cortas
+</title>
+
+<head>
+  <link rel="stylesheet" type="text/css" href="prototipo.css">
+</head>
+
+<body>
+  <audio id="bien" src="bien.mp3" preload="auto"></audio>
+  <audio id="mal" src="mal.mp3" preload="auto"></audio>
+  <audio id="victoria" src="victoria.mp3" preload="auto"></audio>
+  <div class="contenedor">
+    <div id="botonera">
+      <input type="button" id="boton" class="btnredondo" value="PLAY" onclick="play()">
+    </div>
+    <div id="resto" class="restoclass"></div>
+  </div>
+
+
+  <script src="preguntas.js">    </script>
+  <script>
+    const traduccion = 9082164016;
+    var d = new Date();
+    var semana = ["8", "2", "3", "4", "5", "6", "7"]
+    var synth = window.speechSynthesis;
+    var fraseMinusculas;
+    var pregunta_elegida;
+    var respuesta_correcta;
+    var indice_aleatorio;
+    function aleatorio() {
+      indice_aleatorio = Math.floor(Math.random() * preguntas.length);
+    }
+    var recognition = new webkitSpeechRecognition();
+    function play() {
+
+      if (preguntas.length > 0) {
+
+        aleatorio();
+        document.getElementById("botonera").innerHTML = '<input type="button" id="botonP" class="btnredondo" value="?" >';
+        var voices = synth.getVoices();
+        pregunta_elegida = preguntas[indice_aleatorio].pregunta;
+        var utterance = new SpeechSynthesisUtterance(pregunta_elegida);
+        utterance.lang = 'es-ES';
+        utterance.voice = voices[7];
+        utterance.rate = 1;
+        speechSynthesis.speak(utterance);
+        utterance.addEventListener('end', (event) => {
+          document.getElementById("botonera").innerHTML = '<input type="button" id="botonE" class="btnredondo" value="ESCUCHANDO" >';
+          recognition.lang = "es-Es";
+          
+          recognition.continuous = true;
+          recognition.interimResults = false;
+          recognition.start();
+          recognition.onresult = function (event) {
+            const results = event.results;
+            const frase = results[results.length - 1][0].transcript;
+            fraseMinusculas = frase.toLowerCase();
+            document.getElementById("botonera").innerHTML = '<input type="button" id="botonP" class="btnredondo" value="COMPROBAR"  onclick="comprobar()">';
+            recognition.abort();
+          }
+        });
+
+      } else {
+        document.getElementById("victoria").play();
+        document.getElementById("botonera").innerHTML = '<input type="button" id="botonP" class="btnredondo" value="¡HAS GANADO!"  >';
+       setTimeout(contrasena, 2000)
+
+      }
+
+
+    }
+    function comprobar() {
+      var respuesta_correcta = preguntas[indice_aleatorio].respuesta;
+
+      if (respuesta_correcta == fraseMinusculas) {
+        borrar(indice_aleatorio);
+
+        document.getElementById("bien").play();
+
+        document.getElementById("botonera").innerHTML = '<input type="button" id="boton" class="btnredondo" value="PLAY" onclick="play()">';
+
+      } else {
+
+        document.getElementById("botonera").innerHTML='<input type="button" id="boton" class="btnredondo" value="'+respuesta_correcta+'" onclick="play()">';
+        document.getElementById("mal").play();
+
+        aleatorio();
+        document.getElementById("botonera").innerHTML='<input type="button" id="boton" class="btnredondo" value="'+respuesta_correcta+'" onclick="play()">';
+        setTimeout(cambiar_a_play, 2000)
+        
+
+      }
+    }
+    function borrar(indice_aleatorio) {
+      preguntas.splice(indice_aleatorio, 1);
+    }
+    
+    function contrasena() {
+      var contrasenafinal=semana[d.getDay()]*traduccion;
+      document.getElementById("botonera").innerHTML='<input type="button" id="boton" class="btnredondo" value="'+contrasenafinal+'" onclick="play()">';
+      
+      
+      
+    }
+    function cambiar_a_play(){
+      document.getElementById("botonera").innerHTML = '<input type="button" id="boton" class="btnredondo" value="PLAY" onclick="play()">';
+
+    }
+
+  </script>
+
+</body>
+
+</html>
