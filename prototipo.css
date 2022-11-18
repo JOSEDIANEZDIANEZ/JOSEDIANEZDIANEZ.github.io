@@ -1,22 +1,22 @@
 
     .btnredondo {
       display: block;
-      width: 400px;
-      height: 400px;
+      width: 600px;
+      height: 600px;
       border-radius: 50%;
       border-color: gray;
       color: gray;
-      font-size: 300%;
+      font-size: 400%;
       background-color: white;
     }
 .btnredondoempezar {
       display: block;
-      width: 50px;
-      height: 50px;
+      width: 100px;
+      height: 100px;
       border-radius: 10%;
       border-color: gray;
       color: gray;
-      font-size: 100%;
+      font-size: 250%;
       background-color: white;
     }
       .contenedor {
@@ -26,7 +26,7 @@
         
         display: flex;
         
-        justify-content: center;
+        justify-content: top;
         
         align-items: center;
        
@@ -48,4 +48,13 @@ color:gray;
 	font-family: Courier,sans-serif;
 	color: #363431;
 }
+.empezardenuevoclass{
+  display: flex;
+  justify-content: right;
+  align-items: right;
  
+}
+.cabecera{
+  display: flex;
+
+}
