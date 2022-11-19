@@ -66,12 +66,16 @@
           recognition.continuous = false;
           recognition.interimResults = false;
           recognition.start();
+          recognition.onerror = function (event) {
+              document.getElementById("botonera").innerHTML = '<input type="button"  class="btnredondo" value="DEMASIADO TARDE, TIENES QUE EMPEZAR DE NUEVO" onclick="location.reload()" style="font-size:40px;white-space:normal;">';
+            }
           recognition.onresult = function (event) {
             const results = event.results;
             const frase = results[results.length - 1][0].transcript;
             fraseMinusculas = frase.toLowerCase();
             document.getElementById("botonera").innerHTML = '<input type="button" id="botonP" class="btnredondo" value="COMPROBAR"  onclick="comprobar()">';
-            recognition.abort();
+           
+           
           }
         });
 
@@ -85,6 +89,9 @@
 
 
     }
+    recognition.onerror = function (event) {
+              document.getElementById("botonera").innerHTML = '<input type="button"  class="btnredondo" value="DEMASIADO TARDE, TIENES QUE EMPEZAR DE NUEVO" onclick="location.reload()" style="font-size:40px;white-space:normal;">';
+            }
     function comprobar() {
 
 
@@ -136,9 +143,7 @@
       parar();
       document.getElementById("botonera").innerHTML = '<input type="button" id="boton" class="btnredondo" value=" ' + minutos + ':' + segundos + '" onclick="play()">';
     }
-    recognition.onerror = function (event) {
-      document.getElementById("botonera").innerHTML = '<input type="button" id="botonE" class="btnredondo" value="DEMASIADO TARDE, TIENES QUE EMPEZAR DE NUEVO" onclick="location.reload()" style="font-size:40px;white-space:normal;">';
-    }
+
 
   </script>
 
