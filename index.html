@@ -59,6 +59,7 @@
         utterance.voice = voices[7];
         utterance.rate = 1;
         speechSynthesis.speak(utterance);
+        setTimeout(demasiado,5000);
         utterance.addEventListener('end', (event) => {
           document.getElementById("botonera").innerHTML = '<input type="button" id="botonE" class="btnredondo" value="ESCUCHANDO" >';
           recognition.lang = "es-Es";
@@ -73,7 +74,7 @@
             fraseMinusculas = frase.toLowerCase();
             document.getElementById("botonera").innerHTML = '<input type="button" id="botonP" class="btnredondo" value="COMPROBAR"  onclick="comprobar()">';
            
-           setTimeout(demasiado,5000);
+           
           }
           
         });
