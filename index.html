@@ -49,6 +49,7 @@
     function play() {
 
       if (preguntas.length > 0) {
+
         aleatorio();
         document.getElementById("botonera").innerHTML = '<input type="button" id="botonP" class="btnredondo" value="?" >';
         var voices = synth.getVoices();
@@ -58,13 +59,6 @@
         utterance.voice = voices[7];
         utterance.rate = 1;
         speechSynthesis.speak(utterance);
-        escuchar();
-
-
-      } else {
-        ganar();
-      }
-      function escuchar() {
         utterance.addEventListener('end', (event) => {
           document.getElementById("botonera").innerHTML = '<input type="button" id="botonE" class="btnredondo" value="ESCUCHANDO" >';
           recognition.lang = "es-Es";
@@ -77,21 +71,19 @@
             const frase = results[results.length - 1][0].transcript;
             fraseMinusculas = frase.toLowerCase();
             document.getElementById("botonera").innerHTML = '<input type="button" id="botonP" class="btnredondo" value="COMPROBAR"  onclick="comprobar()">';
-            
+            recognition.abort();
           }
         });
+
+      } else {
+        document.getElementById("victoria").play();
+        document.getElementById("botonera").innerHTML = '<input type="button" id="botonP" class="btnredondo" value="¡HAS GANADO!"  >';
+        setTimeout(pararymostrartiempo, 2000);
+        setTimeout(contrasena, 4000);
+
       }
-      function hablar() {
 
 
-      }
-
-    }
-    function ganar() {
-      document.getElementById("victoria").play();
-      document.getElementById("botonera").innerHTML = '<input type="button" id="botonP" class="btnredondo" value="¡HAS GANADO!"  >';
-      setTimeout(pararymostrartiempo, 2000);
-      setTimeout(contrasena, 4000);
     }
     function comprobar() {
 
@@ -145,15 +137,9 @@
       document.getElementById("botonera").innerHTML = '<input type="button" id="boton" class="btnredondo" value=" ' + minutos + ':' + segundos + '" onclick="play()">';
     }
     recognition.onerror = function (event) {
-      document.getElementById("botonera").innerHTML = '<input type="button" id="botonE" class="btnredondo" value="SEGUIR ESCUCHANDO" onclick="escuchardenuevo()" style="font-size:40px;">';
+      document.getElementById("botonera").innerHTML = '<input type="button" id="botonE" class="btnredondo" value="DEMASIADO TARDE, TIENES QUE EMPEZAR DE NUEVO" onclick="location.reload()" style="font-size:40px;white-space:normal;">';
     }
-   
-    function escuchardenuevo(){
 
-      setTimeout(() => {
-      recognition.start();
-    }, 500);
-    }
   </script>
 
 </body>
