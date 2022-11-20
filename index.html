@@ -60,10 +60,19 @@
         utterance.rate = 1;
         speechSynthesis.speak(utterance);
         utterance.addEventListener('end', (event) => {
+          document.getElementById("botonera").innerHTML = '<input type="button" id="botonE" class="btnredondo" value="ESCUCHANDO" >';
+          recognition.lang = "es-Es";
 
-
-
-          document.getElementById("botonera").innerHTML = '<input type="button" id="botonE" class="btnredondo" value="RESPONDER" onclick="responder()">';
+          recognition.continuous = true;
+          recognition.interimResults = false;
+          recognition.start();
+          recognition.onresult = function (event) {
+            const results = event.results;
+            const frase = results[results.length - 1][0].transcript;
+            fraseMinusculas = frase.toLowerCase();
+            document.getElementById("botonera").innerHTML = '<input type="button" id="botonP" class="btnredondo" value="COMPROBAR"  onclick="comprobar()">';
+            recognition.abort();
+          }
         });
 
       } else {
@@ -74,23 +83,6 @@
 
       }
 
-
-    }
-
-    function responder() {
-      document.getElementById("botonera").innerHTML = '<input type="button" id="botonE" class="btnredondo" value="ESCUCHANDO" >';
-      recognition.lang = "es-Es";
-
-      recognition.continuous = false;
-      recognition.interimResults = false;
-      recognition.start();
-      recognition.onresult = function (event) {
-        const results = event.results;
-        const frase = results[results.length - 1][0].transcript;
-        fraseMinusculas = frase.toLowerCase();
-        document.getElementById("botonera").innerHTML = '<input type="button" id="botonP" class="btnredondo" value="COMPROBAR"  onclick="comprobar()">';
-
-      }
 
     }
     function comprobar() {
@@ -144,7 +136,10 @@
       parar();
       document.getElementById("botonera").innerHTML = '<input type="button" id="boton" class="btnredondo" value=" ' + minutos + ':' + segundos + '" onclick="play()">';
     }
+    recognition.addEventListener('error', (event) => {
+      document.getElementById("botonera").innerHTML = '<input type="button" id="boton" class="btnredondo" value="DEMASIADO LENTO, DALE A REP PARA EMPEZAR DE NUEVO " style="font-size:40px;white-space:normal;">';
 
+    });
   </script>
 
 </body>
