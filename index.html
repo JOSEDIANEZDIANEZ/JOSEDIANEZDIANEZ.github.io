@@ -36,7 +36,7 @@
 
     const traduccion = 9082164016;
     var d = new Date();
-    var semana = ["8", "2", "3", "4", "5", "6", "7"]
+    var dia_de_la_semana = ["8", "2", "3", "4", "5", "6", "7"]
     var synth = window.speechSynthesis;
     var fraseMinusculas;
     var pregunta_elegida;
@@ -70,6 +70,7 @@
             const results = event.results;
             const frase = results[results.length - 1][0].transcript;
             fraseMinusculas = frase.toLowerCase();
+            /*alert("lo que escucha es    "+frase);*/
             document.getElementById("botonera").innerHTML = '<input type="button" id="botonP" class="btnredondo" value="COMPROBAR"  onclick="comprobar()">';
             recognition.abort();
           }
@@ -91,9 +92,23 @@
 
       var respuesta_correcta = preguntas[indice_aleatorio].respuesta;
 
-      var respuesta_correcta_sinacentos = respuesta_correcta.normalize("NFD").replace(/[\u0300,\u0301]/g, "");
-      var fraseMinusculas_normalizada = fraseMinusculas.normalize("NFD").replace(/[\u0300,\u0301]/g, "");
+      var respuesta_correcta_sinacentos = respuesta_correcta.replace(/[\u0300,\u0301]/g, "");
+      var fraseMinusculas_normalizada = fraseMinusculas.replace(/[\u0300,\u0301]/g, "");
       var respuesta_correcta_normalizada = respuesta_correcta_sinacentos.toLowerCase();
+      fraseMinusculas_normalizada = fraseMinusculas_normalizada.replace(/[\u0300,\u0301]/g, "");
+      fraseMinusculas_normalizada = fraseMinusculas_normalizada.replace(/hola/igm, "ola");
+      fraseMinusculas_normalizada = fraseMinusculas_normalizada.replace(/haro/igm, "aro");
+      fraseMinusculas_normalizada = fraseMinusculas_normalizada.replace(/niño/igm, "ñu");
+      fraseMinusculas_normalizada = fraseMinusculas_normalizada.replace(/new/igm, "ñu");
+      fraseMinusculas_normalizada = fraseMinusculas_normalizada.replace(/pizza/igm, "tiza");
+
+      fraseMinusculas_normalizada = fraseMinusculas_normalizada.replace(/dina/igm, "dino");
+      /*alert("convierte lo que ha escuchado en       "+fraseMinusculas_normalizada+"   y tiene que compararlo con   "+respuesta_correcta_normalizada);*/
+
+
+
+
+
 
       if (respuesta_correcta_normalizada == fraseMinusculas_normalizada) {
         borrar(indice_aleatorio);
@@ -104,11 +119,11 @@
 
       } else {
 
-        document.getElementById("botonera").innerHTML = '<input type="button" id="boton" class="btnredondo" value="' + respuesta_correcta + '" onclick="play()">';
+        /*document.getElementById("botonera").innerHTML = '<input type="button" id="boton" class="btnredondo" value="' + respuesta_correcta + '" onclick="play()">';*/
         document.getElementById("mal").play();
 
-        aleatorio();
-        document.getElementById("botonera").innerHTML = '<input type="button" id="boton" class="btnredondo" value="' + respuesta_correcta + '" onclick="play()" style="font-size:40px;white-space:normal;">';
+        /*aleatorio();*/
+        document.getElementById("botonera").innerHTML = '<input type="button" id="boton" class="btnredondo" value="' + respuesta_correcta + '"  style="font-size:40px;white-space:normal;">';
         setTimeout(cambiar_a_play, 2000)
 
 
@@ -119,7 +134,7 @@
     }
 
     function contrasena() {
-      var contrasenafinal = semana[d.getDay()] * traduccion;
+      var contrasenafinal = dia_de_la_semana[d.getDay()] * traduccion;
       document.getElementById("botonera").innerHTML = '<input type="button" id="boton" class="btnredondo" value="' + contrasenafinal + '" onclick="play()">';
 
 
@@ -136,10 +151,7 @@
       parar();
       document.getElementById("botonera").innerHTML = '<input type="button" id="boton" class="btnredondo" value=" ' + minutos + ':' + segundos + '" onclick="play()">';
     }
-    recognition.addEventListener('error', (event) => {
-      document.getElementById("botonera").innerHTML = '<input type="button" id="boton" class="btnredondo" value="DEMASIADO LENTO, DALE A REP PARA EMPEZAR DE NUEVO " style="font-size:40px;white-space:normal;">';
 
-    });
   </script>
 
 </body>
