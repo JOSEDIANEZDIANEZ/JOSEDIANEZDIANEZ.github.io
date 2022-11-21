@@ -63,7 +63,7 @@
           document.getElementById("botonera").innerHTML = '<input type="button" id="botonE" class="btnredondo" value="ESCUCHANDO" >';
           recognition.lang = "es-Es";
 
-          recognition.continuous = true;
+          recognition.continuous = false;
           recognition.interimResults = false;
           recognition.start();
           recognition.onresult = function (event) {
@@ -122,9 +122,7 @@
         document.getElementById("botonera").innerHTML = '<input type="button" id="boton" class="btnredondo" value="' + respuesta_correcta + '" onclick="play()">';
         document.getElementById("mal").play();
 
-        aleatorio();
-        document.getElementById("botonera").innerHTML = '<input type="button" id="boton" class="btnredondo" value="' + respuesta_correcta + '" onclick="play()" style="font-size:40px;white-space:normal;">';
-        setTimeout(cambiar_a_play, 2000)
+       
 
 
       }
