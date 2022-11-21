@@ -1,37 +1,106 @@
 var preguntas=[
+
+
 {
-/*pregunta 0*/
-"pregunta":"¿Quién descubrió America?",
-"respuesta":"Cristóbal colón"
+"pregunta":"0",
+"respuesta":"ARO"
+},
+
+
+{
+"pregunta":"1",
+"respuesta":"TE"
 },
 
 {
-/*pregunta 1*/
-"pregunta":"¿Cuál es la capital de España?",
-"respuesta":"Madrid"
+"pregunta":"2",
+"respuesta":"ÑU"
+},
+
+{
+"pregunta":"3",
+"respuesta":"HUMO"
+},
+
+{
+"pregunta":"4",
+"respuesta":"OCA"
+},
+
+{
+"pregunta":"5",
+"respuesta":"OLA"
+},
+
+{
+"pregunta":"6",
+"respuesta":"OSO"
+},
+
+{
+"pregunta":"7",
+"respuesta":"UFO"
+},
+
+{
+"pregunta":"8",
+"respuesta":"AJO"
+},
+
+{
+"pregunta":"9",
+"respuesta":"BIO"
 },
 {
-/*pregunta 2*/
-"pregunta":"¿Cómo se llama la ciudad donde vives?",
-"respuesta":"Sevilla"
+"pregunta":"10",
+"respuesta":"TORO"
 },
+
+
 {
-/*pregunta 2*/
-"pregunta":"¿Por qué Alejandro tiene la churra tan chica?",
-"respuesta":"Porque es pequeño"
+"pregunta":"11",
+"respuesta":"DADO"
 },
+
 {
-/*pregunta 2*/
-"pregunta":"¿Por qué Samuel es tan capuyo?",
-"respuesta":"Porque es como su mamá"
+"pregunta":"12",
+"respuesta":"DINO"
 },
+
 {
-/*pregunta 2*/
-"pregunta":"¿Cuantos dedos tiene una mano?",
-"respuesta":"Cinco"
+"pregunta":"13",
+"respuesta":"TRÉBOL"
 },
+
 {
-/*pregunta 3*/
-"pregunta":"¿Cómo se llama el satélite de la tierra?",
-"respuesta":"luna"
-}];
+"pregunta":"14",
+"respuesta":"DUQUE"
+},
+
+{
+"pregunta":"15",
+"respuesta":"CORAZÓN"
+},
+
+{
+"pregunta":"16",
+"respuesta":"TIZA"
+},
+
+{
+"pregunta":"17",
+"respuesta":"TIJERA"
+},
+
+{
+"pregunta":"18",
+"respuesta":"TEJA"
+},
+
+{
+"pregunta":"19",
+"respuesta":"TAPIA"
+}
+
+
+];

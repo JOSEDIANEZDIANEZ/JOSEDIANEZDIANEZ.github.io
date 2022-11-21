@@ -1,0 +1,159 @@
+<html lang="es-ES">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>
+  preguntas cortas
+</title>
+
+<head>
+  <link rel="stylesheet" type="text/css" href="prototipo.css">
+  <script src="cronometro.js">   inicio(); </script>
+</head>
+
+<body>
+  <audio id="bien" src="bien.mp3" preload="auto"></audio>
+  <audio id="mal" src="mal.mp3" preload="auto"></audio>
+  <audio id="victoria" src="victoria.mp3" preload="auto"></audio>
+  <div class="contenedor">
+
+    <div id="empezardenuevo" class="empezardenuevoclass"><input type="button" id="botonempezar"
+        class="btnredondoempezar" value="REP" onclick="location.reload()"></div>
+
+
+    <div id="botonera">
+      <input type="button" id="boton" class="btnredondo" value="PLAY" onclick="play()">
+    </div>
+  </div>
+  <div id="contenedorcronometro" style="display:none;">
+    <div class="reloj" id="Horas" style="display:none;">00</div>
+    <div class="reloj" id="Minutos">00</div>
+    <div class="reloj" id="Segundos">:00</div>
+    <div class="reloj" id="Centesimas" style="display:none;">:00</div>
+
+  </div>
+
+  <script src="preguntas.js">    </script>
+  <script>
+
+    const traduccion = 9082164016;
+    var d = new Date();
+    var dia_de_la_semana = ["8", "2", "3", "4", "5", "6", "7"]
+    var synth = window.speechSynthesis;
+    var fraseMinusculas;
+    var pregunta_elegida;
+    var respuesta_correcta;
+    var indice_aleatorio;
+    function aleatorio() {
+      indice_aleatorio = Math.floor(Math.random() * preguntas.length);
+    }
+    var recognition = new webkitSpeechRecognition();
+    function play() {
+
+      if (preguntas.length > 0) {
+
+        aleatorio();
+        document.getElementById("botonera").innerHTML = '<input type="button" id="botonP" class="btnredondo" value="?" >';
+        var voices = synth.getVoices();
+        pregunta_elegida = preguntas[indice_aleatorio].pregunta;
+        var utterance = new SpeechSynthesisUtterance(pregunta_elegida);
+        utterance.lang = 'es-ES';
+        utterance.voice = voices[7];
+        utterance.rate = 1;
+        speechSynthesis.speak(utterance);
+        utterance.addEventListener('end', (event) => {
+          document.getElementById("botonera").innerHTML = '<input type="button" id="botonE" class="btnredondo" value="ESCUCHANDO" >';
+          recognition.lang = "es-Es";
+
+          recognition.continuous = true;
+          recognition.interimResults = false;
+          recognition.start();
+          recognition.onresult = function (event) {
+            const results = event.results;
+            const frase = results[results.length - 1][0].transcript;
+            fraseMinusculas = frase.toLowerCase();
+            /*alert("lo que escucha es    "+frase);*/
+            document.getElementById("botonera").innerHTML = '<input type="button" id="botonP" class="btnredondo" value="COMPROBAR"  onclick="comprobar()">';
+            recognition.abort();
+          }
+        });
+
+      } else {
+        document.getElementById("victoria").play();
+        document.getElementById("botonera").innerHTML = '<input type="button" id="botonP" class="btnredondo" value="¡HAS GANADO!"  >';
+        setTimeout(pararymostrartiempo, 2000);
+        setTimeout(contrasena, 4000);
+
+      }
+
+
+    }
+    function comprobar() {
+
+
+
+      var respuesta_correcta = preguntas[indice_aleatorio].respuesta;
+
+      var respuesta_correcta_sinacentos = respuesta_correcta.replace(/[\u0300,\u0301]/g, "");
+      var fraseMinusculas_normalizada = fraseMinusculas.replace(/[\u0300,\u0301]/g, "");
+      var respuesta_correcta_normalizada = respuesta_correcta_sinacentos.toLowerCase();
+      fraseMinusculas_normalizada = fraseMinusculas_normalizada.replace(/[\u0300,\u0301]/g, "");
+      fraseMinusculas_normalizada = fraseMinusculas_normalizada.replace(/hola/igm, "ola");
+      fraseMinusculas_normalizada = fraseMinusculas_normalizada.replace(/haro/igm, "aro");
+      fraseMinusculas_normalizada = fraseMinusculas_normalizada.replace(/niño/igm, "ñu");
+      fraseMinusculas_normalizada = fraseMinusculas_normalizada.replace(/new/igm, "ñu");
+      fraseMinusculas_normalizada = fraseMinusculas_normalizada.replace(/pizza/igm, "tiza");
+
+      fraseMinusculas_normalizada = fraseMinusculas_normalizada.replace(/dina/igm, "dino");
+      /*alert("convierte lo que ha escuchado en       "+fraseMinusculas_normalizada+"   y tiene que compararlo con   "+respuesta_correcta_normalizada);*/
+
+
+
+
+
+
+      if (respuesta_correcta_normalizada == fraseMinusculas_normalizada) {
+        borrar(indice_aleatorio);
+
+        document.getElementById("bien").play();
+
+        document.getElementById("botonera").innerHTML = '<input type="button" id="boton" class="btnredondo" value="PLAY" onclick="play()">';
+
+      } else {
+
+        document.getElementById("botonera").innerHTML = '<input type="button" id="boton" class="btnredondo" value="' + respuesta_correcta + '" onclick="play()">';
+        document.getElementById("mal").play();
+
+        aleatorio();
+        document.getElementById("botonera").innerHTML = '<input type="button" id="boton" class="btnredondo" value="' + respuesta_correcta + '" onclick="play()" style="font-size:40px;white-space:normal;">';
+        setTimeout(cambiar_a_play, 2000)
+
+
+      }
+    }
+    function borrar(indice_aleatorio) {
+      preguntas.splice(indice_aleatorio, 1);
+    }
+
+    function contrasena() {
+      var contrasenafinal = dia_de_la_semana[d.getDay()] * traduccion;
+      document.getElementById("botonera").innerHTML = '<input type="button" id="boton" class="btnredondo" value="' + contrasenafinal + '" onclick="play()">';
+
+
+
+    }
+    function cambiar_a_play() {
+      document.getElementById("botonera").innerHTML = '<input type="button" id="boton" class="btnredondo" value="PLAY" onclick="play()">';
+
+    }
+    function pararymostrartiempo() {
+      /*var reloj=<div id="contenedorcronometro"><div class="reloj" id="Horas" style="display:none;">00</div><div class="reloj" id="Minutos">00</div><div class="reloj" id="Segundos">:00</div><div class="reloj" id="Centesimas" style="display:none;">:00</div></div>;*/
+
+
+      parar();
+      document.getElementById("botonera").innerHTML = '<input type="button" id="boton" class="btnredondo" value=" ' + minutos + ':' + segundos + '" onclick="play()">';
+    }
+
+  </script>
+
+</body>
+
+</html>
